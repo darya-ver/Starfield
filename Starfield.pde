@@ -1,4 +1,3 @@
-// NormalParticle bob;
 Particle [] particles;
 void setup()
 {
@@ -16,7 +15,7 @@ void setup()
 
 void draw()
 {
-	background(10);
+	background(200);
 
 	for (int i=0;i<particles.length; i++)
 	{
@@ -24,7 +23,6 @@ void draw()
 		particles[i].move();
 	}
 }
-	
 
 class NormalParticle implements Particle
 {
@@ -51,6 +49,7 @@ class NormalParticle implements Particle
 
 	public void show()
 	{
+		strokeWeight(1);
 		fill(colorR, colorG, colorB);
 		ellipse((float)myX, (float)myY, 10, 10);
 	}
@@ -83,18 +82,51 @@ class OddballParticle implements Particle
 	{
 		myX += mySpeed*Math.cos(myAngle);
 		myY += mySpeed*Math.sin(myAngle);
+		// myY += 0;
+		// myX += 0;
 	}
 
 	public void show()
 	{
-		fill(255, 255, 255);
+		//helmet-white
+		fill(255);
+		strokeWeight(1);
+		ellipse((float)myX, (float)myY-8, 90, 70);
+		//helmet-black
+		fill(0);
+		ellipse((float)myX, (float)myY, 70, 50);
+
+		//face
+		fill(255, 195, 170);
 		ellipse((float)myX, (float)myY, 50, 50);
+		
+		//eyes-white
+		fill(255);
+		ellipse((float)myX-10, (float)myY-7, 10, 10);
+		ellipse((float)myX+10, (float)myY-7, 10, 10);
+		//eyes-black
 		fill(0);
 		ellipse((float)myX-10,(float)myY-7, 5, 5);
 		ellipse((float)myX+10, (float)myY-7, 5, 5);
+		
+		//mouth
 		arc((float)myX, (float)myY+5, 30, 30, 0, (float)(Math.PI));
-		fill(255,0,0);
-		triangle((float)myX, (float)myY+35, (float)myX+30, (float)myY+25, (float)myX-30, (float)myY+25);
+
+		//body
+		strokeWeight(7);
+		line((float)myX, (float)myY+28, (float)myX, (float)myY+75);	
+		line((float)myX-40,(float)myY+35, (float)myX+40, (float)myY+35);	
+		line((float)myX, (float)myY+75, (float)myX-20, (float)myY+120);
+		line((float)myX, (float)myY+75, (float)myX+20, (float)myY+120);
+
+		//bubble
+		strokeWeight(1);
+		fill(255);
+		ellipse((float)myX+100, (float)myY-110, 130, 80);
+		
+		// //hat
+		// fill(119,7,124);
+		// triangle((float)myX, (float)myY-35, (float)myX+30, (float)myY-19, (float)myX-30, (float)myY-19);
 	}
 }
 
