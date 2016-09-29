@@ -25,6 +25,22 @@ void draw()
 	}
 }
 
+void mousePressed()
+{
+	for (int i=0;i<particles.length-1; i++)
+	{
+		particles[i]=new NormalParticle();
+	}
+
+	// particles[particles.length-1]=new OddballParticle();
+	particles[0]=new JumboParticle();
+
+	for (int i=0;i<particles.length-1; i++)
+	{
+		particles[i].mouseLocation();
+	}
+	
+}
 class NormalParticle implements Particle
 {
 	double myX, myY, myAngle, mySpeed;
@@ -46,6 +62,7 @@ class NormalParticle implements Particle
 	{
 		myX += mySpeed*Math.cos(myAngle);
 		myY += mySpeed*Math.sin(myAngle);
+		myAngle += 0.05;
 	}
 
 	public void show()
@@ -54,12 +71,18 @@ class NormalParticle implements Particle
 		fill(colorR, colorG, colorB);
 		ellipse((float)myX, (float)myY, 10, 10);
 	}
+	public void mouseLocation()
+	{
+		myX=mouseX;
+		myY=mouseY;
+	}
 }
 
 interface Particle
 {
 	public void show();
 	public void move();
+	public void mouseLocation();
 }
 
 class OddballParticle implements Particle
@@ -81,8 +104,19 @@ class OddballParticle implements Particle
 
 	public void move()
 	{
-		myX += mySpeed*Math.cos(myAngle);
-		myY += mySpeed*Math.sin(myAngle);
+		
+		if (myY > 600)
+		{
+			myY -= mySpeed*Math.cos(myAngle);
+		}
+		else if (myY<0)
+		{
+			myY -= mySpeed*Math.cos(myAngle);
+		}
+		else {
+			myX += mySpeed*Math.cos(myAngle);
+			myY += mySpeed*Math.sin(myAngle);
+		}
 		// myY += 0;
 		// myX += 0;
 	}
@@ -92,12 +126,18 @@ class OddballParticle implements Particle
 		fill((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
 		ellipse((float)myX, (float)myY, 15, 15);
 	}
+	public void mouseLocation()
+	{
+		myX=mouseX;
+		myY=mouseY;
+	}
 }
 
 class JumboParticle extends NormalParticle //implements Particle
 {
 	void show()
 	{
+		fill(colorR, colorG, colorB);
 		ellipse((float)myX, (float)myY, 50, 50);
 	}
 }
