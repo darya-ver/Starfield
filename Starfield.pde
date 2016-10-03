@@ -16,11 +16,14 @@ void setup()
 	// particles[particles.length-1]=new OddballParticle(300,300);
 	// particles[0]=new JumboParticle(300,300);
 	bob = new NormalParticle(400,400);
+	background(0);
+	((NormalParticle)particles[0]).myX = 10;
 }
 
 void draw()
 {
-	background(200);
+	fill(0,0,0,100);
+	rect(0,0,600,600);
 
 	for (int i=0;i<particles.length; i++)
 	{
@@ -96,7 +99,7 @@ class NormalParticle implements Particle
 	public void show()
 	{
 		noStroke();
-		fill(colorR, colorG, colorB, 100);
+		fill(colorR, colorG, colorB);
 		ellipse((float)myX, (float)myY, 10, 10);
 		
 		// for (int i=0; i<10; i++)
@@ -107,7 +110,7 @@ class NormalParticle implements Particle
 		
 	}
 	// public void mouseLocation()
-	// {
+	// { 
 	// 	myX=mouseX;
 	// 	myY=mouseY;
 	// }
