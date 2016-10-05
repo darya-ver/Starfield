@@ -1,7 +1,8 @@
 Particle [] particles;
 float randomX, randomY;
 
-NormalParticle bob;
+Tree tree1 = new Tree();
+
 void setup()
 {
 	size(600,600);
@@ -14,15 +15,18 @@ void setup()
 	}
 
 	particles[particles.length-2] = new OddballParticle();
-	particles[particles.length-1]=new JumboParticle();
+	particles[particles.length-3] = new OddballParticle();
+	particles[particles.length-1] = new JumboParticle();
 	background(0);
-	// ((NormalParticle)particles[0]).myX = 10;
+	
 }
 
 void draw()
 {
 	fill(0,0,0,100);
 	rect(0,0,600,600);
+
+	tree1.show();
 
 	for (int i=0;i<particles.length; i++)
 	{
@@ -33,10 +37,13 @@ void draw()
 
 void mousePressed()
 {
+	tree1.mousePressedTree();
+
 	for (int i=0;i<particles.length; i++)
 	{
 		particles[i].mouseLocation();
 	}
+
 	
 }
 class NormalParticle implements Particle
@@ -66,8 +73,8 @@ class NormalParticle implements Particle
 	public void show()
 	{
 		noStroke();
-		fill(colorR, colorG, colorB);
-		ellipse((float)myX, (float)myY, 10, 10);
+		fill(223, 245, 78);
+		ellipse((float)myX, (float)myY, 7, 7);
 		
 	}
 	public void mouseLocation()
@@ -93,27 +100,27 @@ interface Particle
 
 class OddballParticle implements Particle
 {
-	double myX, myY, myAngle, mySpeed;
+	double myX, myY, myAngle, mySpeed, inc;
 
 	OddballParticle()
 	{
 		myX = 300;
 		myY = 300;
 		myAngle = Math.PI*2*Math.random();
-		mySpeed = Math.random()*3;
+		mySpeed = Math.random()*10 -5;
+		inc = (PI*2)/25.0;
 	}
 
 	public void move()
 	{
-		myX += mySpeed*Math.cos(myAngle);
+		myX += mySpeed;
 		myY += mySpeed*Math.sin(myAngle);
-		myAngle += 0.05;
+		// myAngle += 0.05;
+		myAngle += inc;
 	}
 
 	public void show()
 	{
-		// fill((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
-		// rect((float)myX, (float)myY, 30, 10);
 		noStroke();
 	 	fill(229,223,153); //bee body
 	 	ellipse((float)myX, (float)myY,30,30);
@@ -134,12 +141,13 @@ class OddballParticle implements Particle
 	 	noFill();
 	 	arc((float)myX-25,(float)myY+5,7, 7, 0,PI);
 	}
+	
 	public void mouseLocation()
 	{
 		myX=mouseX;
 		myY=mouseY;
 		myAngle = Math.PI*2*Math.random();
-		mySpeed = Math.random()*3;
+		mySpeed = Math.random()*10 - 5;
 	}
 	
 }
@@ -148,6 +156,7 @@ class JumboParticle extends NormalParticle
 {
 	void show()
 	{
+		strokeWeight(1);
 		fill(colorR, colorG, colorB);
 		ellipse((float)myX, (float)myY, 50, 50);
 		fill(0);
@@ -155,5 +164,31 @@ class JumboParticle extends NormalParticle
 		ellipse((float)myX+10, (float)myY-5, 5, 5);
 		fill(255,0,0);
 		arc((float)myX, (float)myY+8, 40, 20, 0, PI);
+	}
+}
+
+class Tree
+{
+	int myX, myY;
+	Tree()
+	{
+		myX = 300;
+		myY = 300;
+	}
+
+	void show()
+	{
+		strokeWeight(10);
+		fill(24,133,53);
+		line(myX, myY, myX, myY+140);
+		noStroke();
+		fill(29,176,4);
+		ellipse(myX, myY, 35, 35);
+
+	}
+	void mousePressedTree()
+	{
+		myX=mouseX;
+		myY=mouseY;
 	}
 }
