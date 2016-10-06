@@ -7,7 +7,7 @@ void setup()
 {
 	size(600,600);
 
-	particles = new Particle [200];
+	particles = new Particle [500];
 
 	for (int i=0;i<particles.length; i++)
 	{
@@ -17,13 +17,13 @@ void setup()
 	particles[particles.length-2] = new OddballParticle();
 	particles[particles.length-3] = new OddballParticle();
 	particles[particles.length-1] = new JumboParticle();
-	background(0);
+	background(97,132,194);
 	
 }
 
 void draw()
 {
-	fill(0,0,0,100);
+	fill(97,132,194,100);
 	rect(0,0,600,600);
 
 	tree1.show();
@@ -49,18 +49,18 @@ void mousePressed()
 class NormalParticle implements Particle
 {
 	double myX, myY, myAngle, mySpeed;
-	int colorR, colorG, colorB;
+	// int colorR, colorG, colorB;
 
 	NormalParticle()
 	{
 		myX = 300;
 		myY = 300;
 		myAngle = Math.PI*2*Math.random();
-		mySpeed = Math.random()*10;
+		mySpeed = Math.random()*10+1;
 
-		colorR = (int)(Math.random()*255);
-		colorG = (int)(Math.random()*255);
-		colorB = (int)(Math.random()*255);
+		// colorR = (int)(Math.random()*255);
+		// colorG = (int)(Math.random()*255);
+		// colorB = (int)(Math.random()*255);
 	}
 
 	public void move()
@@ -85,9 +85,9 @@ class NormalParticle implements Particle
 		myAngle = Math.PI*2*Math.random();
 		mySpeed = Math.random()*10;
 
-		colorR = (int)(Math.random()*255);
-		colorG = (int)(Math.random()*255);
-		colorB = (int)(Math.random()*255);
+		// colorR = (int)(Math.random()*255);
+		// colorG = (int)(Math.random()*255);
+		// colorB = (int)(Math.random()*255);
 	}
 }
 
@@ -108,6 +108,10 @@ class OddballParticle implements Particle
 		myY = 300;
 		myAngle = Math.PI*2*Math.random();
 		mySpeed = Math.random()*10 -5;
+		if (mySpeed == 0)
+		{
+			mySpeed = Math.random()*10 -5;
+		}
 		inc = (PI*2)/25.0;
 	}
 
@@ -157,7 +161,7 @@ class JumboParticle extends NormalParticle
 	void show()
 	{
 		strokeWeight(1);
-		fill(colorR, colorG, colorB);
+		fill(240, 222, 141);
 		ellipse((float)myX, (float)myY, 50, 50);
 		fill(0);
 		ellipse((float)myX-10, (float)myY-5, 5, 5);
@@ -179,7 +183,7 @@ class Tree
 	void show()
 	{
 		strokeWeight(10);
-		fill(24,133,53);
+		fill(171,230,124);
 		line(myX, myY, myX, myY+140);
 		noStroke();
 		fill(29,176,4);
